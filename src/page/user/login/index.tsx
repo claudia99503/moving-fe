@@ -53,6 +53,7 @@ export default function UserLoginPage() {
   });
 
   const [isLoginPending, setIsLoginPending] = useState<boolean>(false);
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
   const inputHeandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
@@ -61,14 +62,17 @@ export default function UserLoginPage() {
       [name]: value,
     });
 
-    setValidation({
-      ...validation,
-      [name]: loginValidation(name, value),
-    });
+    if (isSubmitted) {
+      setValidation({
+        ...validation,
+        [name]: loginValidation(name, value),
+      });
+    }
   };
 
   const loginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsSubmitted(true);
     if (
       values.email &&
       values.password &&

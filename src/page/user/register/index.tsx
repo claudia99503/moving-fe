@@ -33,6 +33,8 @@ export default function UserRegisterPage() {
     region: false,
   });
 
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+
   const inputHeandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, files, checked, type } = e.currentTarget;
 
@@ -63,20 +65,25 @@ export default function UserRegisterPage() {
           ...values,
           region: name as ServiceRegion,
         });
-        setValidation({
-          ...validation,
-          region: true,
-        });
+
+        if (isSubmitted) {
+          setValidation({
+            ...validation,
+            region: true,
+          });
+        }
       } else {
         setValues({
           ...values,
           region: checked ? (name as ServiceRegion) : undefined,
         });
 
-        setValidation({
-          ...validation,
-          region: checked,
-        });
+        if (isSubmitted) {
+          setValidation({
+            ...validation,
+            region: checked,
+          });
+        }
       }
     }
   };
@@ -84,6 +91,8 @@ export default function UserRegisterPage() {
   const [isLoginPending, setIsLoginPending] = useState<boolean>(false);
 
   const profileRegister = async () => {
+    setIsSubmitted(true);
+
     if (
       validation.region &&
       !!values.region &&
@@ -117,7 +126,6 @@ export default function UserRegisterPage() {
       } catch (e) {
         if (isAxiosError(e)) {
           const data = e.response?.data;
-
           alert(data);
         }
       } finally {
@@ -127,6 +135,7 @@ export default function UserRegisterPage() {
       return;
     }
   };
+
   return (
     <div className={style.container}>
       <div className={style.wrapper}>
@@ -159,3 +168,4 @@ export default function UserRegisterPage() {
     </div>
   );
 }
+
