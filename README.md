@@ -2,11 +2,11 @@
 	<span id="top">
 	<h1>Moving 프론트엔드 레포지토리</h1><br>
 
-![image]()
+![image](https://github.com/user-attachments/assets/7ac80cb6-b3a1-47c2-a70f-dc3f5b8da42d)
 
 
 
-<b>[Moving 바로가기](https://moving-fe-teal.vercel.app)</b> <br>
+<b>[Moving 바로가기](https://gomoveit.vercel.app)</b> <br>
 
 <br> 
 </div>
@@ -121,7 +121,7 @@
 <br>
 
 ### 시연 영상
-![image]()
+[![MOVING 시연 영상](https://img.youtube.com/vi/영상ID/0.jpg)](https://github.com/user-attachments/assets/44cb82a9-84d9-47ae-a8e4-a27945bdd328)
 
 <br><br>
 
