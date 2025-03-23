@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import DriverCard from '../../../components/card/DriverCard';
 import CostDetailBottomTab from '../costDetail/components/CostDetailBottomTab';
@@ -47,7 +47,13 @@ const CostDetail = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const handleResize = () => setIsMobileView(window.innerWidth <= 1199);
+    const handleResize = () => {
+      setIsMobileView((prev) => {
+        const newValue = window.innerWidth <= 1199;
+        return prev === newValue ? prev : newValue;
+      });
+    };
+
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -59,38 +65,27 @@ const CostDetail = () => {
     }
   }, [estimate]);
 
-  const handleFavoriteToggle = () => {
+  const handleFavoriteToggle = useCallback(() => {
     if (!estimate) return;
 
     toggleFavoriteMutation.mutate(estimate.moverId, {
-      onSuccess: (data) => {
-
-        setIsFavorite(data.isFavorite);
-
-        // 상태가 변경되었을 경우에만 refetch 호출
-        if (data.isFavorite !== estimate.isFavorite) {
+      onSuccess: ({ isFavorite }) => {
+        if (isFavorite !== estimate.isFavorite) {
           refetch();
         }
       },
-      onError: (error) => {
-        console.error('기사님 찜하기 상태 변경 실패:', error);
-      },
+      onError: (error) => console.error('기사님 찜하기 상태 변경 실패:', error),
     });
-  };
+  }, [estimate, toggleFavoriteMutation, refetch]);
 
-  const handleConfirmClick = () => {
-    if (!isConfirmed) {
+  const handleConfirmClick = useCallback(() => {
+    if (isConfirmed || !estimate?.estimateId) return;
 
-      updateEstimateConfirmed(Number(estimate.estimateId), {
-        onSuccess: () => {
-          setIsConfirmed(true);
-        },
-        onError: (error) => {
-          console.error('견적 확정 실패:', error);
-        },
-      });
-    }
-  };
+    updateEstimateConfirmed(estimate.estimateId, {
+      onSuccess: () => refetch(),
+      onError: (error) => console.error('견적 확정 실패:', error),
+    });
+  }, [isConfirmed, estimate, updateEstimateConfirmed, refetch]);
 
   if (error) {
     const errorMessage =
@@ -293,3 +288,4 @@ const CostDetail = () => {
 };
 
 export default CostDetail;
+

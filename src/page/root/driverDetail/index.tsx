@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import style from './index.module.css';
 import DriverCard from '../../../components/card/DriverCard';
@@ -75,20 +75,21 @@ const DriverDetailPage = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [])
+  }, []);
 
   useEffect(() => {
-    if (driver) {
-      setIsFavorite(driver.isFavorite);
-      setIsAssigned(driver.isAssigned);
-    }
+    setIsFavorite(driver?.isFavorite ?? false);
+    setIsAssigned(driver?.isAssigned ?? false);
   }, [driver]);
 
+  const handleResize = useCallback(() => {
+    setIsMobileView(window.innerWidth <= 1199);
+  }, []);
+
   useEffect(() => {
-    const handleResize = () => setIsMobileView(window.innerWidth <= 1199);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [handleResize]);
 
   const handleFavoriteToggle = () => {
     if (!driver) {
@@ -99,13 +100,9 @@ const DriverDetailPage = () => {
     toggleFavoriteMutation.mutate(driver.id, {
       onSuccess: (data) => {
         setIsFavorite(data.isFavorite);
-        if (data.isFavorite !== driver.isFavorite) {
-          refetch();
-        }
+        refetch();
       },
-      onError: (error) => {
-        console.error('찜 상태 변경 실패:', error);
-      },
+      onError: console.error,
     });
   };
 
@@ -115,37 +112,31 @@ const DriverDetailPage = () => {
       return;
     }
 
-    // 공통 에러 처리 함수
     const handleErrorResponse = (status: number, message: string) => {
-      if (status === 400) {
-        switch (message) {
-          case '일반 견적 요청을 먼저 진행해 주세요.':
-            setErrorModalMessage('일반 견적 요청을 먼저 진행해주세요.');
-            setIsModalOpen(true); // 일반 견적 요청 모달
-            break;
-          case '해당 기사님의 서비스 지역이 아닙니다.':
-            setErrorModalMessage(
-              `${driver.moverName} 기사님은 해당 지역에서 서비스를 제공하지 않습니다.`,
-            );
-            break;
-          default:
-            setErrorModalMessage('요청이 잘못되었습니다. 다시 시도해주세요.');
-        }
-      } else if (status === 401) {
-        setErrorModalMessage('권한이 없습니다. 로그인 후 다시 시도해주세요.');
-        setIsLoginModalOpen(true); // 로그인 모달
-      } else if (status === 403) {
-        setErrorModalMessage(
-          '이 서비스는 소비자 전용입니다. 접근 권한이 없습니다.',
-        );
-      } else if (status === 500) {
-        setErrorModalMessage(
-          '서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
-        );
-      } else {
-        setErrorModalMessage(
+      const errorMessages: Record<number, string> = {
+        400:
+          message === '일반 견적 요청을 먼저 진행해 주세요.'
+            ? '일반 견적 요청을 먼저 진행해주세요.'
+            : message === '해당 기사님의 서비스 지역이 아닙니다.'
+              ? `${driver?.moverName} 기사님은 해당 지역에서 서비스를 제공하지 않습니다.`
+              : '요청이 잘못되었습니다. 다시 시도해주세요.',
+        401: '권한이 없습니다. 로그인 후 다시 시도해주세요.',
+        403: '이 서비스는 소비자 전용입니다. 접근 권한이 없습니다.',
+        500: '서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
+      };
+
+      setErrorModalMessage(
+        errorMessages[status] ||
           `알 수 없는 오류가 발생했습니다. 다시 시도해주세요. (오류 코드: ${status})`,
-        );
+      );
+
+      if (
+        status === 400 &&
+        message === '일반 견적 요청을 먼저 진행해 주세요.'
+      ) {
+        setIsModalOpen(true);
+      } else if (status === 401) {
+        setIsLoginModalOpen(true);
       }
     };
 
@@ -156,7 +147,6 @@ const DriverDetailPage = () => {
           if (status === 201) {
             if (!isAssigned) {
               refetch();
-              setIsAssigned(true);
               setIsAssignedEstimateReqOpen(true);
             }
           }
@@ -459,3 +449,4 @@ const DriverDetailPage = () => {
 };
 
 export default DriverDetailPage;
+

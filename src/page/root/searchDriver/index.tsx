@@ -1,4 +1,13 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useRef,
+  useCallback,
+  useMemo,
+  Suspense,
+  lazy,
+} from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useGetMoverList } from '../../../lib/useQueries/driver';
 import { useGetFavoriteMover } from '../../../lib/useQueries/favorite';
@@ -7,7 +16,6 @@ import FilterDropdown from './components/FilterDropdown';
 import FilterDropdownMedium from './components/FilterDropdownMedium';
 import SortDropdown from './components/SortDropdown';
 import DriverSearch from './components/DriverSearch';
-import DriverCard from '../../../components/card/DriverCard';
 import LoadingSpinner from '../../../components/loading/LoadingSpinner';
 import { AuthContext } from '../../../context/authContext';
 import style from './index.module.css';
@@ -20,6 +28,9 @@ import { ChipProps } from '../../../components/chip/Chip';
 import { Mover } from '../../../types/apiTypes';
 import { useGetPendingEstimate } from '../../../lib/useQueries/estimate';
 import { useMedia } from '../../../lib/function/useMediaQuery';
+import { useResponsive } from '../../../lib/function/useResponsive';
+
+const DriverCard = lazy(() => import('../../../components/card/DriverCard'));
 
 const FILTER_TYPES = {
   REGION: 'region',
@@ -35,6 +46,9 @@ const SORT_OPTIONS = [
 ];
 
 const SearchDriver = () => {
+  const screenSize = useResponsive();
+  const isMediumScreen = screenSize === 'MEDIUM';
+  const isSmallScreen = screenSize === 'SMALL';
   const { userValue } = useContext(AuthContext);
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -57,27 +71,32 @@ const SearchDriver = () => {
   const [sortOption, setSortOption] = useState<
     'reviewCount' | 'averageScore' | 'career' | 'confirmationCount'
   >('reviewCount');
-  const [isMediumScreen, setIsMediumScreen] = useState<boolean>(
-    window.innerWidth <= 1199,
-  );
-  const [isSmallScreen, setIsSmallScreen] = useState<boolean>(
-    window.innerWidth <= 744,
-  );
 
-  const queryParams = {
-    sortBy: sortOption,
-    keyword: searchKeyword || undefined,
-    selectedServiceRegion:
-      selectedRegionLabel !== '지역'
-        ? translations[selectedRegionLabel]
-        : undefined,
-    selectedServiceType:
-      selectedServiceLabel !== '서비스'
-        ? translations[selectedServiceLabel]
-        : undefined,
-    page,
-    limit: 10,
-  };
+  const observerRef = useRef<HTMLDivElement | null>(null);
+
+  const queryParams = useMemo(
+    () => ({
+      sortBy: sortOption,
+      keyword: searchKeyword || undefined,
+      selectedServiceRegion:
+        selectedRegionLabel !== '지역'
+          ? translations[selectedRegionLabel]
+          : undefined,
+      selectedServiceType:
+        selectedServiceLabel !== '서비스'
+          ? translations[selectedServiceLabel]
+          : undefined,
+      page,
+      limit: 10,
+    }),
+    [
+      sortOption,
+      searchKeyword,
+      selectedRegionLabel,
+      selectedServiceLabel,
+      page,
+    ],
+  );
 
   const regionFilterRef = useRef<HTMLDivElement>(null);
   const serviceFilterRef = useRef<HTMLDivElement>(null);
@@ -101,77 +120,75 @@ const SearchDriver = () => {
   }, [pathname]);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMediumScreen(window.innerWidth <= 1199);
-      setIsSmallScreen(window.innerWidth <= 744);
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  useEffect(() => {
     if (moverList) {
       setMovers((prevMovers) => {
         if (page === 1) {
           return moverList.list;
         }
-        return [...prevMovers, ...moverList.list]; // 페이지가 증가하면 데이터를 누적
+        return [...prevMovers, ...moverList.list];
       });
       setHasNextPage(moverList.currentPage < moverList.totalPages);
     }
   }, [moverList, page]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (
-        window.innerHeight + document.documentElement.scrollTop ===
-        document.documentElement.offsetHeight
-      ) {
-        if (hasNextPage) {
-          handleLoadMore(); // 스크롤이 맨 아래에 도달하면 다음 페이지 로드
+    if (!observerRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasNextPage) {
+          handleLoadMore();
         }
+      },
+      {
+        threshold: 1.0,
+      },
+    );
+
+    observer.observe(observerRef.current);
+
+    return () => {
+      if (observerRef.current) {
+        observer.unobserve(observerRef.current);
       }
     };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [hasNextPage]);
+  }, [observerRef.current, hasNextPage]);
 
   useEffect(() => {
-    if (pendingMoverList && moverList) {
-      for (let i = 0; i < pendingMoverList.list.length; i++) {
-        const pendingMover = pendingMoverList.list[i];
-        const matchedMover = moverList.list.find((mover) => {
-          return mover.id === pendingMover.moverId;
-        });
+    if (!pendingMoverList || !moverList) return;
 
-        if (matchedMover && !matchedMover.serviceType.includes('WAITING')) {
-          matchedMover.serviceType.push('WAITING');
-        }
-      }
-    }
+    const updatedMovers = moverList.list.map((mover) => ({
+      ...mover,
+      serviceType: pendingMoverList.list.some(
+        (pending: Mover) => pending.moverId === mover.id,
+      )
+        ? [...mover.serviceType, 'WAITING']
+        : mover.serviceType,
+    }));
+
+    setMovers(updatedMovers);
   }, [pendingMoverList, moverList]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPendingKeyword(e.target.value);
   };
 
-  const handleSearchKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      setSearchKeyword(pendingKeyword); // 검색 실행
+  const handleSearchKeyPress = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key !== 'Enter') return;
+      setSearchKeyword(pendingKeyword);
       setPage(1);
       setMovers([]);
-    }
-  };
+    },
+    [pendingKeyword],
+  );
 
-  const handleLoadMore = () => {
-    if (hasNextPage) {
-      setPage((prevPage) => {
-        const nextPage = prevPage + 1;
-        return nextPage;
-      });
+  const handleLoadMore = useCallback(() => {
+    if (!hasNextPage) {
+      return;
     }
-  };
+    setPage((prev) => prev + 1);
+  }, [hasNextPage]);
 
   const handleSelect = (type: string, label: string) => {
     if (type === FILTER_TYPES.REGION) {
@@ -179,12 +196,16 @@ const SearchDriver = () => {
     } else if (type === FILTER_TYPES.SERVICE) {
       setSelectedServiceLabel(label);
     }
+    setPage(1);
+    setMovers([]);
   };
 
   const handleSortSelect = (value: string) => {
     setSortOption(
       value as 'reviewCount' | 'averageScore' | 'career' | 'confirmationCount',
     );
+    setPage(1);
+    setMovers([]);
   };
 
   const handleToggleFilter = (filterName: string) => {
@@ -303,62 +324,72 @@ const SearchDriver = () => {
     }
 
     return (
-      <div className={style.favoriteDriversContainer}>
-        {favoriteMoverList.slice(0, 3).map((user: Mover, index: number) => (
-          <DriverCard
-            key={`${user.moverId ?? 'no-moverId'}-${index}`}
-            list={{
-              ...user,
-              profileImg: user.profileImg || undefined,
-              serviceType: user.serviceType.map(
-                (type: string) => type as ChipProps['type'],
-              ),
-            }}
-            type='dibs'
-            styles='small'
-            onClick={() => handleMoverCardClick(user.moverId)}
-            count={2}
-          />
-        ))}
-      </div>
+      <Suspense fallback={<LoadingSpinner />}>
+        <div className={style.favoriteDriversContainer}>
+          {favoriteMoverList.slice(0, 3).map((user: Mover, index: number) => (
+            <DriverCard
+              key={`${user.moverId ?? 'no-moverId'}-${index}`}
+              list={{
+                ...user,
+                profileImg: user.profileImg || undefined,
+                serviceType: user.serviceType.map(
+                  (type: string) => type as ChipProps['type'],
+                ),
+              }}
+              type='dibs'
+              styles='small'
+              onClick={() => handleMoverCardClick(user.moverId)}
+              count={2}
+            />
+          ))}
+        </div>
+      </Suspense>
     );
   };
 
   const renderDriverCards = () => {
     return (
-      <div
-        className={`${style.cardContainer} ${
-          isMediumScreen
-            ? isSmallScreen
-              ? style.smallScreen
-              : style.compact
-            : style.rightFilters
-        }`}
-      >
-        {movers.map((user: Mover, index: number) => (
-          <DriverCard
-            key={`${user.id ?? 'no-id'}-${index}`}
-            list={{
-              ...user,
-              moverId: user.userId,
-              profileImg: user.profileImg || undefined,
-              serviceType: user.serviceType.map(
-                (type: string) => type as ChipProps['type'],
-              ),
-            }}
-            onClick={() => handleDriverCardClick(user.id)}
-            count={
-              mobileWithChipSearDriver
-                ? 4
-                : mobileWithChipSearDriverSecond
+      <Suspense fallback={<LoadingSpinner />}>
+        <div
+          className={`${style.cardContainer} ${
+            isMediumScreen
+              ? isSmallScreen
+                ? style.smallScreen
+                : style.compact
+              : style.rightFilters
+          }`}
+        >
+          {movers.map((user: Mover, index: number) => (
+            <DriverCard
+              key={`${user.id ?? 'no-id'}-${index}`}
+              list={{
+                ...user,
+                moverId: user.userId,
+                profileImg: user.profileImg || undefined,
+                serviceType: user.serviceType.map(
+                  (type: string) => type as ChipProps['type'],
+                ),
+              }}
+              onClick={() => handleDriverCardClick(user.id)}
+              count={
+                mobileWithChipSearDriver
                   ? 4
-                  : mobileWithChipSearDriveLast
-                    ? 3
-                    : 6
-            }
+                  : mobileWithChipSearDriverSecond
+                    ? 4
+                    : mobileWithChipSearDriveLast
+                      ? 3
+                      : 6
+              }
+            />
+          ))}
+          <div
+            ref={(el) => {
+              observerRef.current = el;
+            }}
+            style={{ height: '10px', background: '#ddd', marginTop: '20px' }}
           />
-        ))}
-      </div>
+        </div>
+      </Suspense>
     );
   };
 
@@ -411,7 +442,9 @@ const SearchDriver = () => {
                     />
                   </div>
                   <div className={style.favoriteDrivers}>찜한 기사님</div>
-                  {renderFavoriteDrivers()}
+                  <Suspense fallback={<LoadingSpinner />}>
+                    {renderFavoriteDrivers()}
+                  </Suspense>
                 </div>
                 <div className={style.rightFilters}>
                   <div ref={sortFilterRef} className={style.sortSection}>
@@ -441,7 +474,9 @@ const SearchDriver = () => {
 
                   {!isMediumScreen && (
                     <div className={style.cardSection}>
-                      {renderDriverCards()}
+                      <Suspense fallback={<LoadingSpinner />}>
+                        {renderDriverCards()}
+                      </Suspense>
                     </div>
                   )}
                 </div>
@@ -458,7 +493,11 @@ const SearchDriver = () => {
               />
             </div>
           )}
-          {isMediumScreen && renderDriverCards()}
+          {isMediumScreen && (
+            <Suspense fallback={<LoadingSpinner />}>
+              {renderDriverCards()}
+            </Suspense>
+          )}
         </div>
       )}
     </div>
@@ -466,3 +505,4 @@ const SearchDriver = () => {
 };
 
 export default SearchDriver;
+

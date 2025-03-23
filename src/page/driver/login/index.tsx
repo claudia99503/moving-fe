@@ -33,6 +33,7 @@ export default function DriverLoginPage() {
       window.location.href = '/';
     }
   }, [user, isPending]);
+
   const [values, setValues] = useState<FormLogin>({
     email: '',
     password: '',
@@ -43,21 +44,6 @@ export default function DriverLoginPage() {
     password: true,
   });
 
-  const [isLoginPending, setIsLoginPending] = useState<boolean>(false);
-
-  const inputHeandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.currentTarget;
-    setValues({
-      ...values,
-      [name]: value,
-    });
-
-    setValidation({
-      ...validation,
-      [name]: loginValidation(name, value),
-    });
-  };
-
   const [errorMessage, setErrorMessage] = useState<{
     email: string;
     password: string;
@@ -66,8 +52,28 @@ export default function DriverLoginPage() {
     password: '',
   });
 
+  const [isLoginPending, setIsLoginPending] = useState<boolean>(false);
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+
+  const inputHeandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.currentTarget;
+    setValues({
+      ...values,
+      [name]: value,
+    });
+
+    if (isSubmitted) {
+      setValidation({
+        ...validation,
+        [name]: loginValidation(name, value),
+      });
+    }
+  };
+
   const loginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsSubmitted(true);
+
     if (
       values.email &&
       values.password &&
@@ -95,8 +101,6 @@ export default function DriverLoginPage() {
       } finally {
         setIsLoginPending(false);
       }
-    } else {
-      return;
     }
   };
 
@@ -107,10 +111,10 @@ export default function DriverLoginPage() {
         <div className={style.mid}>
           <form className={style.loginForm} onSubmit={loginSubmit}>
             <NomalInputComponent
-              title='이메일'
-              placeholder='이메일을 입력해 주세요'
+              title="이메일"
+              placeholder="이메일을 입력해 주세요"
               value={values.email}
-              name='email'
+              name="email"
               inputHeandler={inputHeandler}
               validation={validation.email}
               errorMessage={
@@ -120,10 +124,10 @@ export default function DriverLoginPage() {
               }
             />
             <InvisibleInputComponent
-              title='비밀번호'
-              placeholder='비밀번호을 입력해 주세요'
+              title="비밀번호"
+              placeholder="비밀번호를 입력해 주세요"
               value={values.password}
-              name='password'
+              name="password"
               inputHeandler={inputHeandler}
               validation={validation.password}
               errorMessage={
@@ -135,17 +139,14 @@ export default function DriverLoginPage() {
             <AuthBtn
               context={isLoginPending ? 'loading...' : '로그인'}
               validation={
-                !!values.email &&
-                !!values.password &&
-                validation.email &&
-                validation.password
+                !!values.email && values.password.length > 0
               }
             />
           </form>
 
           <p>
             아직 무빙 회원이 아니신가요?
-            <Link to='/driver/signup'>이메일로 회원가입하기</Link>
+            <Link to="/driver/signup">이메일로 회원가입하기</Link>
           </p>
         </div>
         <DriverLoginBottom />
