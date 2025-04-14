@@ -24,6 +24,7 @@
     "browser": true, // 브라우저 환경 설정
     "es2021": true, // ES2021 문법 지원
     "node": true, // Node.js 환경 설정
+    "jest": true,
   },
   "rules": {
     // React 관련 규칙
