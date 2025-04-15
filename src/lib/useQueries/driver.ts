@@ -10,12 +10,22 @@ interface UseMoverListParams {
 
 /* GET - 기사님 리스트 조회 */
 export function useGetMoverList(params: UseMoverListParams & { page: number }) {
+  const { sortBy, keyword, selectedServiceRegion, selectedServiceType, page } =
+    params;
+
   return useQuery({
-    queryKey: ['moverList', params],
+    queryKey: [
+      'moverList',
+      sortBy,
+      keyword,
+      selectedServiceRegion,
+      selectedServiceType,
+      page,
+    ],
     queryFn: () => getMoverList(params),
+    staleTime: 1000 * 30, // 30초 동안은 동일 조건에서 재요청하지 않음
   });
 }
-
 
 /* GET - 기사님 프로필 상세 조회 */
 export function useGetMoverDetail(moverId: number) {
