@@ -6,8 +6,8 @@ export type ScreenSize = 'SMALL' | 'MEDIUM' | 'LARGE';
 export const useResponsive = (): ScreenSize => {
   const getScreenSize = (): ScreenSize => {
     const width = window.innerWidth;
-    if (width <= 744) return 'SMALL';
-    if (width <= 1199) return 'MEDIUM';
+    if (width >= 375 && width <= 744) return 'SMALL';
+    if (width >= 745 && width <= 1199) return 'MEDIUM';
     return 'LARGE';
   };
 
