@@ -34,7 +34,10 @@ export function useRequestAssignedEstimate() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (moverId: number) => requestAssignedEstimate(moverId),
+    mutationFn: async (moverId: number) => {
+      const response = await requestAssignedEstimate(moverId);
+      return response;
+    },
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['moverDetail'] }); // 성공 후 데이터 갱신
     },
@@ -43,3 +46,4 @@ export function useRequestAssignedEstimate() {
     },
   });
 }
+
