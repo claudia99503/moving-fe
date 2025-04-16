@@ -7,10 +7,17 @@
 
 
 
-<b>[Moving 바로가기](https://moving-fe-teal.vercel.app)</b> <br>
-
+<b>[Moving 바로가기](gomoveit.vercel.app)</b> <br>
+  
 <br> 
 </div>
+
+🔐 **테스트용 유저 계정**
+
+- **아이디**: `super101@test.com`  
+- **비밀번호**: `12341234`
+
+<br>
 
 <details>
 <summary>목차</summary>
