@@ -202,7 +202,12 @@
     padding: 20px 24px;
   }
 
+  .leftFilters {
+    margin-top: 0;
+  }
+
   .rightFilters {
     display: none;
   }
 }
+
