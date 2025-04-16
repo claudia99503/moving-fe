@@ -16,18 +16,13 @@
 <summary>목차</summary>
   
 1. [서비스 소개](#app)
-2. [프론트엔드 팀 소개](#team)
-3. [기술 및 개발 환경](#dev)
-4. [개발 일정](#schedule)
-5. [역할](#roles)
-6. [구현 기능](#feature)
-7. [컨벤션](#convention)
-8. [프로젝트 구조](#tree)
-9. [협업 문화](#culture)
+2. [기술 및 개발 환경](#dev)
+3. [담당 구현](#roles)
+4. [컨벤션](#convention)
+5. [프로젝트 구조](#tree)
 
-11. </details>
+</details>
 <br>
-
 
 ## <span id="app">📝 1. 서비스 소개</span>
 
@@ -35,110 +30,15 @@
 이사 시장의 **불투명한 가격 책정**과 **신뢰할 수 없는 서비스** 문제를 해결하기 위해, 소비자가 **채팅형 인터페이스**로 손쉽게 이사 정보를 입력하면 여러 기사님들이 견적을 제공하고, 소비자는 **제공된 견적과 리뷰를 비교해 자신에게 꼭 맞는 기사님을 선택**할 수 있습니다.  
 무빙은 **소비자**와 **기사님** 모두가 믿고 이용할 수 있는 **편리하고 신뢰도 높은 이사 서비스**를 제공합니다.
 
-### 주요 기능
 
-### 🏡 **소비자 기능**
-
-- **소비자 로그인 및 회원가입**  
-  - 소비자는 전용 로그인 및 회원가입 페이지에서 가입할 수 있습니다.  
-  - **소셜 로그인**: 구글, 네이버, 카카오톡 지원  
-  - **이메일 회원가입**: 이메일, 전화번호, 비밀번호 유효성 검사 진행  
-  - **로그아웃 기능** 제공  
-
-- **프로필 등록 및 수정**  
-  - **프로필 이미지**, **이용 서비스**, **거주 지역**을 등록하거나 수정할 수 있습니다.  
-  - **GNB**에서 아바타 클릭 → **프로필 등록 및 수정 페이지**로 이동 가능  
-
-- **견적 요청**  
-  - 소비자는 **채팅 형태**의 인터페이스를 통해 간편하게 이사 정보를 입력하고 견적을 요청할 수 있습니다.  
-  - 입력 항목: **이사 종류**, **이사 날짜**, **출발지 및 도착지 주소**  
-  - **카카오 우편번호 서비스**를 활용해 정확한 주소 입력 가능  
-  - **프로그래스 바**로 입력 진행 상황을 시각적으로 확인 가능  
-  - 각 입력 항목에 있는 **수정하기 버튼**을 통해 입력 내용 수정 가능  
-  - 요청한 견적은 **대기 중인 견적 페이지**에서 확인 및 **취소** 가능  
-
-- **기사님 찾기 및 비교**  
-  - **별명 검색**으로 기사님 조회 가능  
-  - **리뷰**, **평점**, **경력**, **확정 횟수** 기준으로 기사님 정렬 가능  
-  - **지역별**, **서비스별** 필터링 기능 제공  
-  - **무한 스크롤**을 통해 기사님 리스트 탐색 가능  
-
-- **찜하기 및 SNS 공유**  
-  - 소비자는 기사님을 **찜하기** 기능으로 저장하고 **찜한 기사님 페이지**에서 이를 확인할 수 있습니다.  
-  - **PC 화면**에서는 기사님 찾기 페이지 좌측에 **찜한 기사님 3명**까지 표시됩니다.  
-  - 기사님 정보를 SNS에 공유 가능  
-    - 예시: `"이사를 준비하시나요? ⭐️ OOO 기사님을 추천합니다! 무빙에서 확인해 보세요! <기사님 상세 페이지 URL>"`  
-
-- **지정 견적 요청**  
-  - 일반 견적 요청 후 특정 기사님에게 **지정 견적 요청** 가능  
-  - **지정 요청**은 일반 요청과 구분되어 **라벨**로 강조 표시됨  
-
-- **받은 견적 관리**  
-  - **대기 중인 견적 리스트**에서 진행 중인 견적 요청 확인 및 **취소** 가능  
-  - 한 번의 요청에 대해 최대 **5명의 기사님**에게 견적 수신 가능 (지정 요청 시 추가 **3명**)  
-  - **견적 상세 페이지**에서 기사님의 정보 및 견적가 확인 가능  
-  - **완료된 이사**에 대한 견적서를 조회하고, 기사님을 **찜하기** 가능  
-
-- **리뷰 작성 및 조회**  
-  - 이사 완료 후 기사님에 대한 **리뷰 작성** 가능  
-  - **이사 리뷰 페이지**에서 작성한 리뷰 내역 및 작성 가능한 리뷰 목록 확인 가능  
-  - 기사님은 **마이 페이지**에서 자신이 받은 리뷰와 평점을 확인 가능  
-
-- **실시간 알림 제공**  
-  - **새로운 견적 도착**, **견적 확정**, **이사 일정**에 대한 알림 제공  
-
-
-### 🚚 **기사님 기능**
-
-- **기사님 로그인 및 회원가입**  
-  - 기사님 전용 로그인 및 회원가입 페이지 제공  
-  - **소셜 로그인** 및 **이메일 로그인** 지원  
-  - **프로필 등록** 후 견적 제안 가능  
-
-- **프로필 등록 및 수정**  
-  - 기사님은 **프로필 이미지**, **별명**, **경력**, **한 줄 소개**, **상세 설명**, **서비스 제공 지역**, **서비스 유형**을 등록 및 수정할 수 있습니다.  
-  - **GNB**에서 아바타 클릭 → **프로필 등록 및 수정 페이지**로 이동 가능  
-
-- **받은 견적 요청 조회 및 관리**  
-  - 서비스 가능 지역 내의 **이사 요청 리스트** 확인 가능  
-  - **이사 종류**, **서비스 가능 지역**, **지정 요청** 기준으로 필터링 가능  
-  - **이사 빠른 순**, **최근 요청 순**으로 정렬 가능  
-
-- **견적 제안 및 반려**  
-  - 기사님은 받은 견적 요청에 대해 가격을 입력하고 **견적서 전송** 가능  
-  - 서비스 불가능한 요청은 **반려** 가능
-
-- **받은 견적 관리**  
-  - 기사님이 받은 견적 요청 리스트 확인 가능  
-  - **지정 요청**이 있는 경우 라벨로 강조되어 구분됨  
-
-- **리뷰 및 평점 확인**  
-  - 기사님은 **마이 페이지**에서 자신이 받은 리뷰와 평점을 조회할 수 있음  
-
-- **실시간 알림 제공**  
-  - **새로운 견적 요청 수신**, **견적 확정**, **이사 일정** 알림 제공
- 
-<br>
 
 ### 시연 영상
 [![MOVING 시연 영상](https://img.youtube.com/vi/영상ID/0.jpg)](https://github.com/user-attachments/assets/44cb82a9-84d9-47ae-a8e4-a27945bdd328)
 
 <br><br>
 
-## <span id="team"> 🧑🏻‍💻👩🏻‍💻 2. 프론트엔드 팀 소개</span>
 
-### 팀원
-
-| 김대건                                                                          | 김민서                                                                           | 김효인                                                                           | 박명준                                                                            | 이율리                                                                            |
-| ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| <img src="https://avatars.githubusercontent.com/u/163653145?v=4" width="200px"/> | <img src="https://avatars.githubusercontent.com/u/101076926?v=4" width="200px"/> | <img src="https://avatars.githubusercontent.com/u/160555885?v=4" width="200px"/> | <img src="https://avatars.githubusercontent.com/u/103097363?v=4" width="200px"/> | <img src="https://avatars.githubusercontent.com/u/57631151?v=4" width="200px"/> |
-| [TradeOffEgoist](https://github.com/TradeOffEgoist)                             | [claudia99503](https://github.com/claudia99503)                                   | [mozzi34](https://github.com/mozzi34)                                           | [mjpark-k](https://github.com/mjpark-k)                                           | [yoorli](https://github.com/yoorli)                                              |
-
-
-<br>
-
-
-## <span id="dev">🛠️ 3. 기술 및 개발 환경</span>
+## <span id="dev">🛠️ 2. 기술 및 개발 환경</span>
 
 ### Frontend
 
@@ -162,43 +62,9 @@
 
 <br><br>
 
-## <span id="schedule">📅 4. 개발 일정 [**2024-11-25 ~ 2025-01-13**]</span>
 
-### 1. 기획 완료
 
-- [x] 요구사항 분석 및 수집
-- [x] 기술 스택 검토 및 선정
-- [x] Git 브랜치 전략 수립
-- [x] PR 규칙 등 팀 컨벤션 확립 [**2024-11-25 ~ 2024-11-28**]
-
-### 2. 컴포넌트 개발
-
-- [x] 각 단위별 담당자 지정 [**2024-11-29**]
-- [x] 컴포넌트 개발 [**2024-11-29 ~ 2024-12-06**]
-
-### 3. 페이지 개발
-
-- [x] 페이지 레이아웃 및 구조 설계 [**2024-12-06**]
-- [x] 페이지 개발 [**2024-12-06 ~ 2024-12-13**]
-- [x] 페이지 스타일링 및 반응형 디자인 적용 [**2024-12-13 ~ 2024-12-20**]
-
-### 4. 백엔드 API 연동
-
-- [x] API 테스트 [**2024-12-21 ~ 2024-12-27**]
-- [x] 페이지에 API 연동 [**2024-12-28 ~ 2025-01-09**]
-
-### 5. 릴리스 준비
-
-- [x] 최종 점검 및 테스트 [**2025-01-10 ~ 2025-01-13**]
-- [x] **최종 발표** [**2025-01-14**]
-
-<br>
-
-#### <p align="right"><a href="#top">TOP👆🏻</a></p>
-
-<br>
-
-## <span id="roles">📝 5. 역할</span>
+## <span id="roles">📝 3. 담당 구현</span>
 
 🎶 **공통 컴포넌트**
 
@@ -215,15 +81,69 @@
 - 🔗 **[페이지네이션 컴포넌트](https://github.com/moving-team/moving-fe/blob/main/src/components/pagination/Pagination.tsx)**  
   : 데이터 목록의 페이지 이동을 위한 컴포넌트.
 
+<br>
 
-✨ **[기사님 찾기 페이지](https://github.com/moving-team/moving-fe/blob/main/src/page/root/searchDriver/index.tsx)**  
+***
+
+<br>
+
+🎨 **페이지**
+
+✨ **[기사님 찾기](https://github.com/claudia99503/moving-fe/tree/main/src/page/root/searchDriver)**  
 - **비회원**과 **일반 유저** 모두 **기사님 전체 리스트**를 조회할 수 있습니다.
 
 - **기사님 검색 및 조회 기능**:  
   - 기사님의 **별명**으로 검색 가능  
   - **리뷰**, **평점**, **경력**, **확정 횟수** 기준으로 정렬 가능  
   - **지역**과 **서비스 종류**에 따라 필터링 가능  
-  - **무한 스크롤**을 통해 **기사님 전체 리스트**를 끊김 없이 탐색 가능  
+  - **무한 스크롤**을 통해 **기사님 전체 리스트**를 끊김 없이 탐색 가능
+  - **찜한 기사님**은 좌측에서 최대 5명까지 확인 가능
+<br>
+
+📁 **디렉토리 구조**
+
+```
+searchDriver/
+├── __tests__/                           # 레이아웃 및 훅 단위 렌더링 테스트
+│   ├── DesktopLayout.test.tsx
+│   ├── DriverList.test.tsx
+│   ├── FavoriteDrivers.test.tsx
+│   ├── MediumLayout.test.tsx
+│   ├── ResponsiveLayout.test.tsx
+│   ├── SearchDriver.test.tsx
+│   └── useInfiniteScroll.test.tsx
+
+├── components/
+│   ├── DriverSearch.tsx                 # 기사님 검색 입력창
+│   ├── DriverSearch.module.css         # 검색창 스타일
+│   ├── FilterDropdown.tsx              # 데스크탑 전용 필터 드롭다운
+│   ├── FilterDropdown.module.css       # 데스크탑 필터 드롭다운 스타일
+│   ├── FilterDropdownMedium.tsx        # 모바일/태블릿용 필터 드롭다운
+│   ├── FilterDropdownMedium.module.css # 모바일 필터 드롭다운 스타일
+│   ├── SortDropdown.tsx                # 기사님 정렬 기준 드롭다운 (화면 너비에 따라 UI 분기)
+│   ├── SortDropdown.module.css         # 정렬 드롭다운 스타일
+│   ├── FixedBottomTab.tsx              # 모바일/태블릿 하단 고정 버튼 (찜/지정 견적 요청 포함)
+│   ├── FixedBottomTab.module.css       # FixedBottomTab 전용 스타일
+│   └── Sentinel.tsx                    # 무한스크롤 감지용 IntersectionObserver 대상 div
+
+├── filters/
+│   ├── FilterConfig.ts                 # 필터 옵션 구성 객체 정의
+│   └── FilterConstants.ts              # 서비스 지역/종류에 대한 한글-영문 매핑 상수
+
+├── hooks/
+│   └── useInfiniteScroll.ts            # IntersectionObserver 기반 무한 스크롤 커스텀 훅
+
+├── layouts/
+│   ├── DesktopLayout.tsx               # 데스크탑 전용 기사 리스트 및 필터 UI
+│   ├── MediumLayout.tsx                # 모바일/태블릿 전용 기사 리스트 및 필터 UI
+│   ├── ResponsiveLayout.tsx            # 화면 크기에 따라 레이아웃 컴포넌트 분기 렌더링
+│   ├── DriverList.tsx                  # 기사 카드 리스트 출력 컴포넌트
+│   └── FavoriteDrivers.tsx             # 로그인 사용자의 찜한 기사 리스트
+
+├── EnumMapper.ts                       # 서비스 지역/종류 enum을 한글로 변환하는 유틸
+├── index.tsx                           # 검색/필터/정렬/목록을 통합한 기사님 찾기 페이지 메인 컴포넌트
+└── index.module.css                    # 페이지 전용 스타일
+```
 
 - #### **비회원**  
 	- **기사님 검색** 및 **전체 리스트 조회** 가능 (**우측**에서 확인)  
@@ -242,7 +162,7 @@
 
 - #### **일반 유저**  
 	- **기사님 검색** 및 **전체 리스트 조회** 가능 (**우측**에서 확인)  
-	- **찜한 기사님**은 **좌측**에서 **최대 3명까지** 확인 가능  
+	- **찜한 기사님**은 **좌측**에서 **최대 5명까지** 확인 가능  
 	- **기사님 전체 리스트**에서 **찜한 기사님**은 **프로필 카드**에 **별도 표시** (**우측**에서 확인)
 
 <table>
@@ -259,7 +179,7 @@
  
 <br>
 
-✨ **[기사님 상세 페이지](https://github.com/moving-team/moving-fe/blob/main/src/page/root/driverDetail/index.tsx)**  
+✨ **[기사님 상세](https://github.com/claudia99503/moving-fe/tree/main/src/page/root/driverDetail)**  
 - **비회원**과 **일반 유저** 모두 **기사님 상세 정보**를 조회할 수 있습니다. 
  
 - **기사님 상세 조회 기능**:  
@@ -269,8 +189,33 @@
   - **기사님 상세 페이지 하단**에서 실제 이용 고객들의 **해당 기사님에 대한 리뷰**를 확인할 수 있습니다.  
     - **평균 평점**과 **평점 분포**를 한눈에 확인  
     - **고객들의 후기**를 통해 기사님의 서비스 품질 및 만족도를 직접 확인 가능  
-    - **페이지네이션** 기능을 통해 **한 페이지당 5개씩** 고객 후기를 **페이지를 넘기며** 확인 가능	
+    - **페이지네이션** 기능을 통해 **한 페이지당 5개씩** 고객 후기를 **페이지를 넘기며** 확인 가능
 
+<br>
+
+📁 **디렉토리 구조**
+
+```
+driverDetail/
+├── components/
+│   ├── DesktopSidebar.tsx         # 데스크탑 전용 사이드 영역 (찜/지정견적/공유 버튼)
+│   ├── DriverDetailCard.tsx       # 기사 프로필 정보를 DriverCard 형태로 렌더링
+│   ├── DriverDetailInfo.tsx       # 기사 상세 설명, 서비스 종류 및 지역 표시
+│   ├── ReviewSection.tsx          # 기사 리뷰 목록 및 평점 요약 영역
+│   ├── MobileBottomTab.tsx        # FixedBottomTab을 감싸는 모바일 전용 하단 버튼 컴포넌트
+│   ├── MetaHelmet.tsx             # Open Graph 메타태그 설정을 위한 Helmet 컴포넌트
+│   └── Modals.tsx                 # 로그인/에러/견적 성공 등 모달 UI 통합 렌더링
+
+├── hooks/
+│   ├── useDriverDetail.ts         # 기사 상세 및 리뷰 데이터를 가져오는 커스텀 훅
+│   └── useIsMobileView.ts         # 현재 뷰포트가 모바일/태블릿인지 판별하는 훅
+
+├── utils/
+│   └── errorHandler.ts            # 에러 코드 및 메시지 통일화를 위한 핸들링 유틸
+
+├── index.tsx                      # 기사 상세 페이지 메인 컴포넌트
+└── index.module.css              # 기사 상세 페이지 전용 스타일
+```
 
 - #### **비회원**  
 	- 기사님의 **상세 설명**, **제공 서비스**, **서비스 가능 지역** 확인 가능  
@@ -312,7 +257,7 @@
 <br>
 
 
-✨ **[소비자 견적 상세 페이지](https://github.com/moving-team/moving-fe/blob/main/src/page/user/costDetail/index.tsx)**  
+✨ **[소비자 견적 상세](https://github.com/claudia99503/moving-fe/tree/main/src/page/user/costDetail)**  
 - **소비자**는 선택한 **개별 견적서**의 상세 정보를 확인할 수 있습니다.
  
 - **견적 상세 페이지**는 두 가지로 구분됩니다:  
@@ -323,6 +268,25 @@
   - **견적가**, **기사님의 코멘트**, **견적 정보** 확인 가능  
   - **견적서 공유** 기능 제공  
     - 예시: `"OOO 기사님이 보낸 견적서를 확인해보세요! <견적 상세 페이지 URL>"`
+   
+<br>
+
+📁 **디렉토리 구조**
+
+```
+costDetail/
+├── components/
+│   ├── CostDetailBottomTab.tsx     # 모바일/태블릿 전용 하단 고정 버튼 (찜/확정 액션)
+│   ├── CostDetailBottomTab.module.css  # 하단 버튼 스타일 정의
+│   ├── CostInfoSection.tsx         # 견적가, 기사 코멘트, 상세 비용 정보 및 토스트 표시
+│   ├── DesktopSidebar.tsx          # 데스크탑용 사이드 버튼 (찜, 확정, 공유)
+│   └── MetaHelmet.tsx              # 견적 페이지용 공유 메타태그 설정
+├── hooks/
+│   ├── useCostDetail.ts            # 찜/확정 상태 관리 및 에러 핸들링 포함 커스텀 훅
+│   └── useIsMobileView.ts          # SMALL 또는 MEDIUM일 때 true 반환하는 모바일 뷰 판별 훅
+├── index.module.css                # 견적 상세 페이지 스타일
+└── index.tsx                       # 견적 상세 페이지 메인 컴포넌트
+```
 
 - #### **대기 중인 견적 상세 페이지**  
 	- **기사님 찜하기** 및 **견적 확정** 가능
@@ -364,26 +328,7 @@
 
 <br>
 
-## ✨ 6. 구현 기능
-
-### 🏡 **소비자 전용** 페이지
-
-- 🔗 **[기사님 찾기 페이지](https://github.com/moving-team/moving-fe/blob/main/src/page/root/searchDriver/index.tsx)**
-  : 기사님 검색 및 리스트 조회, 필터링 및 정렬 기능
-
-- 🔗 **[기사님 상세 페이지](https://github.com/moving-team/moving-fe/blob/main/src/page/root/driverDetail/index.tsx)**
-  : 기사님의 상세 설명, 제공 서비스, 서비스 가능 지역 확인
-  
-- 🔗 **[소비자 견적 상세 페이지](https://github.com/moving-team/moving-fe/blob/main/src/page/user/costDetail/index.tsx)**
-  : 받은 견적과 진행 중인 견적에 대한 견적서 상세 정보 확인 및 확정 기능
-
-
-
-#### <p align="right"><a href="#top">TOP👆🏻</a></p>
-
-<br>
-
-## <span id="convention">🖌️ 7. 컨벤션</span>
+## <span id="convention">🖌️ 4. 컨벤션</span>
 
 ### Git 컨벤션
 
@@ -421,7 +366,7 @@
 
 <br>
 
-## <span id="tree">🌱 8. 프로젝트 구조</span>
+## <span id="tree">🌱 5. 프로젝트 구조</span>
 
 - **public/**: 애플리케이션의 정적 자산을 포함하는 디렉터리.  
   - **assets/**: SVG 및 기타 이미지 파일 저장 디렉터리.  
@@ -524,320 +469,11 @@
 - **package.json**: 프로젝트 의존성, 스크립트 및 메타데이터 관리.  
 - **tsconfig.json**: 타입스크립트 컴파일러 설정 파일.  
 
-```
-🌿src
- ┣ 🎶components
- ┃ ┣ 📂404
- ┃ ┃ ┣ 📜NotFound.module.css
- ┃ ┃ ┗ 📜NotFound.tsx
- ┃ ┣ 📂btn
- ┃ ┃ ┣ 📜AuthBtn.module.css
- ┃ ┃ ┣ 📜AuthBtn.tsx
- ┃ ┃ ┣ 📜Button.module.css
- ┃ ┃ ┣ 📜Button.tsx
- ┃ ┃ ┣ 📜LoginBtn.module.css
- ┃ ┃ ┗ 📜LoginBtn.tsx
- ┃ ┣ 📂card
- ┃ ┃ ┣ 📜DriverCard.module.css
- ┃ ┃ ┣ 📜DriverCard.tsx
- ┃ ┃ ┣ 📜DriverProfile.module.css
- ┃ ┃ ┣ 📜DriverProfile.tsx
- ┃ ┃ ┣ 📜UserCard.module.css
- ┃ ┃ ┣ 📜UserCard.tsx
- ┃ ┃ ┣ 📜UserProfile.module.css
- ┃ ┃ ┗ 📜UserProfile.tsx
- ┃ ┣ 📂chip
- ┃ ┃ ┣ 📜Chip.module.css
- ┃ ┃ ┗ 📜Chip.tsx
- ┃ ┣ 📂costInfo
- ┃ ┃ ┣ 📜CostInfo.module.css
- ┃ ┃ ┗ 📜CostInfo.tsx
- ┃ ┣ 📂input
- ┃ ┃ ┣ 📜AuthInput.module.css
- ┃ ┃ ┗ 📜AuthInput.tsx
- ┃ ┣ 📂loading
- ┃ ┃ ┣ 📜LoadingSpinner.module.css
- ┃ ┃ ┗ 📜LoadingSpinner.tsx
- ┃ ┣ 📂modal
- ┃ ┃ ┣ 📜ModalContainer.module.css
- ┃ ┃ ┗ 📜ModalContainer.tsx
- ┃ ┣ 📂nav
- ┃ ┃ ┣ 📂components
- ┃ ┃ ┃ ┣ 📜Notification.tsx
- ┃ ┃ ┃ ┣ 📜NotificationModal.module.css
- ┃ ┃ ┃ ┣ 📜NotificationModal.tsx
- ┃ ┃ ┃ ┗ 📜type.ts
- ┃ ┃ ┣ 📜Nav.module.css
- ┃ ┃ ┣ 📜Nav.tsx
- ┃ ┃ ┣ 📜NavMenuModal.module.css
- ┃ ┃ ┣ 📜NavMenuModal.tsx
- ┃ ┃ ┣ 📜ProfileModal.module.css
- ┃ ┃ ┗ 📜ProfileModal.tsx
- ┃ ┣ 📂noContents
- ┃ ┃ ┣ 📜NoContents.module.css
- ┃ ┃ ┗ 📜NoContents.tsx
- ┃ ┣ 📂page
- ┃ ┃ ┣ 📂auth
- ┃ ┃ ┃ ┣ 📜AuthBottom.module.css
- ┃ ┃ ┃ ┣ 📜AuthBottom.tsx
- ┃ ┃ ┃ ┣ 📜AuthTop.module.css
- ┃ ┃ ┃ ┗ 📜AuthTop.tsx
- ┃ ┃ ┣ 📂edit
- ┃ ┃ ┃ ┣ 📜EditBtn.module.css
- ┃ ┃ ┃ ┗ 📜EditBtn.tsx
- ┃ ┃ ┣ 📂login
- ┃ ┃ ┃ ┗ 📜index.module.css
- ┃ ┃ ┣ 📂register
- ┃ ┃ ┃ ┣ 📜ImgUpload.module.css
- ┃ ┃ ┃ ┣ 📜ImgUpload.tsx
- ┃ ┃ ┃ ┣ 📜Region.module.css
- ┃ ┃ ┃ ┣ 📜Region.tsx
- ┃ ┃ ┃ ┣ 📜SelectItem.module.css
- ┃ ┃ ┃ ┣ 📜SelectItem.tsx
- ┃ ┃ ┃ ┣ 📜ServiceType.module.css
- ┃ ┃ ┃ ┗ 📜ServiceType.tsx
- ┃ ┃ ┗ 📂signup
- ┃ ┃ ┃ ┗ 📜index.module.css
- ┃ ┣ 📂pageError
- ┃ ┃ ┣ 📜PageError.module.css
- ┃ ┃ ┗ 📜PageError.tsx
- ┃ ┣ 📂pagination
- ┃ ┃ ┣ 📜Pagination.module.css
- ┃ ┃ ┗ 📜Pagination.tsx
- ┃ ┣ 📂review
- ┃ ┃ ┣ 📜Review.module.css
- ┃ ┃ ┗ 📜Review.tsx
- ┃ ┣ 📂search
- ┃ ┃ ┣ 📜Search.module.css
- ┃ ┃ ┗ 📜Search.tsx
- ┃ ┣ 📂snsShare
- ┃ ┃ ┣ 📜ShareKakao.tsx
- ┃ ┃ ┣ 📜SnsShare.module.css
- ┃ ┃ ┗ 📜SnsShare.tsx
- ┃ ┣ 📂tab
- ┃ ┃ ┣ 📜Tab.module.css
- ┃ ┃ ┗ 📜Tab.tsx
- ┃ ┗ 📂toast
- ┃ ┃ ┣ 📜Toast.module.css
- ┃ ┃ ┗ 📜Toast.tsx
- ┣ 📂context
- ┃ ┗ 📜authContext.tsx
- ┣ 📂layout
- ┃ ┣ 📜DriverLayout.module.css
- ┃ ┣ 📜DriverLayout.tsx
- ┃ ┣ 📜RendingLayout.module.css
- ┃ ┣ 📜RendingLayout.tsx
- ┃ ┣ 📜UserLayout.module.css
- ┃ ┗ 📜UserLayout.tsx
- ┣ 📂lib
- ┃ ┣ 📂api
- ┃ ┃ ┣ 📜STORAGE_KEY.ts
- ┃ ┃ ┣ 📜assignedEstimateReq.ts
- ┃ ┃ ┣ 📜auth.ts
- ┃ ┃ ┣ 📜axios.ts
- ┃ ┃ ┣ 📜customer.ts
- ┃ ┃ ┣ 📜driver.ts
- ┃ ┃ ┣ 📜estimate.ts
- ┃ ┃ ┣ 📜estimateReq.ts
- ┃ ┃ ┣ 📜favorite.ts
- ┃ ┃ ┣ 📜kakao.ts
- ┃ ┃ ┣ 📜notification.ts
- ┃ ┃ ┣ 📜review.ts
- ┃ ┃ ┗ 📜user.ts
- ┃ ┣ 📂function
- ┃ ┃ ┣ 📜direction.ts
- ┃ ┃ ┣ 📜useMediaQuery.ts
- ┃ ┃ ┣ 📜utils.ts
- ┃ ┃ ┗ 📜validation.ts
- ┃ ┗ 📂useQueries
- ┃ ┃ ┣ 📜assignedEstimateReq.ts
- ┃ ┃ ┣ 📜customer.ts
- ┃ ┃ ┣ 📜driver.ts
- ┃ ┃ ┣ 📜estimate.ts
- ┃ ┃ ┣ 📜estimateReq.ts
- ┃ ┃ ┣ 📜favorite.ts
- ┃ ┃ ┣ 📜notification.ts
- ┃ ┃ ┣ 📜notificationConnect.ts
- ┃ ┃ ┣ 📜review.ts
- ┃ ┃ ┗ 📜user.ts
- ┣ 📂page
- ┃ ┣ 🚚driver
- ┃ ┃ ┣ 📂costCall
- ┃ ┃ ┃ ┣ 📂components
- ┃ ┃ ┃ ┃ ┣ 📜CallList.module.css
- ┃ ┃ ┃ ┃ ┣ 📜CallList.tsx
- ┃ ┃ ┃ ┃ ┣ 📜Dropdown.module.css
- ┃ ┃ ┃ ┃ ┣ 📜Dropdown.tsx
- ┃ ┃ ┃ ┃ ┣ 📜Filter.module.css
- ┃ ┃ ┃ ┃ ┣ 📜Filter.tsx
- ┃ ┃ ┃ ┃ ┣ 📜ModalInput.module.css
- ┃ ┃ ┃ ┃ ┗ 📜ModalInput.tsx
- ┃ ┃ ┃ ┣ 📜index.module.css
- ┃ ┃ ┃ ┗ 📜index.tsx
- ┃ ┃ ┣ 📂costDetail
- ┃ ┃ ┃ ┣ 📜index.module.css
- ┃ ┃ ┃ ┗ 📜index.tsx
- ┃ ┃ ┣ 📂costHandler
- ┃ ┃ ┃ ┣ 📜index.module.css
- ┃ ┃ ┃ ┗ 📜index.tsx
- ┃ ┃ ┣ 📂editInfo
- ┃ ┃ ┃ ┣ 📂components
- ┃ ┃ ┃ ┃ ┣ 📜Mid.module.css
- ┃ ┃ ┃ ┃ ┗ 📜Mid.tsx
- ┃ ┃ ┃ ┣ 📜index.module.css
- ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┗ 📜type.ts
- ┃ ┃ ┣ 📂editProfile
- ┃ ┃ ┃ ┣ 📂components
- ┃ ┃ ┃ ┃ ┣ 📜Mid.module.css
- ┃ ┃ ┃ ┃ ┗ 📜Mid.tsx
- ┃ ┃ ┃ ┣ 📜index.module.css
- ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┗ 📜type.ts
- ┃ ┃ ┣ 📂login
- ┃ ┃ ┃ ┗ 📜index.tsx
- ┃ ┃ ┣ 📂myPage
- ┃ ┃ ┃ ┣ 📜index.module.css
- ┃ ┃ ┃ ┗ 📜index.tsx
- ┃ ┃ ┣ 📂register
- ┃ ┃ ┃ ┣ 📂components
- ┃ ┃ ┃ ┃ ┣ 📜Mid.module.css
- ┃ ┃ ┃ ┃ ┗ 📜Mid.tsx
- ┃ ┃ ┃ ┣ 📜index.module.css
- ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┗ 📜type.ts
- ┃ ┃ ┗ 📂signup
- ┃ ┃ ┃ ┗ 📜index.tsx
- ┃ ┣ 🌱root
- ┃ ┃ ┣ 📂driverDetail
- ┃ ┃ ┃ ┣ 📜index.module.css
- ┃ ┃ ┃ ┗ 📜index.tsx
- ┃ ┃ ┣ 📂searchDriver
- ┃ ┃ ┃ ┣ 📂components
- ┃ ┃ ┃ ┃ ┣ 📜DriverSearch.module.css
- ┃ ┃ ┃ ┃ ┣ 📜DriverSearch.tsx
- ┃ ┃ ┃ ┃ ┣ 📜FilterDropdown.module.css
- ┃ ┃ ┃ ┃ ┣ 📜FilterDropdown.tsx
- ┃ ┃ ┃ ┃ ┣ 📜FilterDropdownMedium.module.css
- ┃ ┃ ┃ ┃ ┣ 📜FilterDropdownMedium.tsx
- ┃ ┃ ┃ ┃ ┣ 📜FixedBottomTab.module.css
- ┃ ┃ ┃ ┃ ┣ 📜FixedBottomTab.tsx
- ┃ ┃ ┃ ┃ ┣ 📜SortDropdown.module.css
- ┃ ┃ ┃ ┃ ┗ 📜SortDropdown.tsx
- ┃ ┃ ┃ ┣ 📂utils
- ┃ ┃ ┃ ┃ ┗ 📜Constants.ts
- ┃ ┃ ┃ ┣ 📜EnumMapper.ts
- ┃ ┃ ┃ ┣ 📜index.module.css
- ┃ ┃ ┃ ┗ 📜index.tsx
- ┃ ┃ ┣ 📜index.module.css
- ┃ ┃ ┗ 📜index.tsx
- ┃ ┗ 🏡user
- ┃ ┃ ┣ 📂costCall
- ┃ ┃ ┃ ┣ 📂components
- ┃ ┃ ┃ ┃ ┣ 📜CostCallContent.tsx
- ┃ ┃ ┃ ┃ ┣ 📜MovingAddress.module.css
- ┃ ┃ ┃ ┃ ┣ 📜MovingAddress.tsx
- ┃ ┃ ┃ ┃ ┣ 📜MovingAddressModal.module.css
- ┃ ┃ ┃ ┃ ┣ 📜MovingAddressModal.tsx
- ┃ ┃ ┃ ┃ ┣ 📜MovingComments.module.css
- ┃ ┃ ┃ ┃ ┣ 📜MovingComments.tsx
- ┃ ┃ ┃ ┃ ┣ 📜MovingDate.css
- ┃ ┃ ┃ ┃ ┣ 📜MovingDate.tsx
- ┃ ┃ ┃ ┃ ┣ 📜MovingType.module.css
- ┃ ┃ ┃ ┃ ┣ 📜MovingType.tsx
- ┃ ┃ ┃ ┃ ┣ 📜Navigation.module.css
- ┃ ┃ ┃ ┃ ┗ 📜Navigation.tsx
- ┃ ┃ ┃ ┣ 📜index.module.css
- ┃ ┃ ┃ ┗ 📜index.tsx
- ┃ ┃ ┣ 📂costDetail
- ┃ ┃ ┃ ┣ 📂components
- ┃ ┃ ┃ ┃ ┣ 📜CostDetailBottomTab.module.css
- ┃ ┃ ┃ ┃ ┗ 📜CostDetailBottomTab.tsx
- ┃ ┃ ┃ ┣ 📜index.module.css
- ┃ ┃ ┃ ┗ 📜index.tsx
- ┃ ┃ ┣ 📂editInfo
- ┃ ┃ ┃ ┣ 📂components
- ┃ ┃ ┃ ┃ ┣ 📜Mid.module.css
- ┃ ┃ ┃ ┃ ┗ 📜Mid.tsx
- ┃ ┃ ┃ ┣ 📜index.module.css
- ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┗ 📜type.ts
- ┃ ┃ ┣ 📂editProfile
- ┃ ┃ ┃ ┣ 📂components
- ┃ ┃ ┃ ┃ ┣ 📜Mid.module.css
- ┃ ┃ ┃ ┃ ┗ 📜Mid.tsx
- ┃ ┃ ┃ ┣ 📜index.module.css
- ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┗ 📜type.ts
- ┃ ┃ ┣ 📂favoriteMover
- ┃ ┃ ┃ ┣ 📜index.module.css
- ┃ ┃ ┃ ┗ 📜index.tsx
- ┃ ┃ ┣ 📂login
- ┃ ┃ ┃ ┗ 📜index.tsx
- ┃ ┃ ┣ 📂movingReview
- ┃ ┃ ┃ ┣ 📂components
- ┃ ┃ ┃ ┃ ┣ 📜MyReview.module.css
- ┃ ┃ ┃ ┃ ┣ 📜MyReview.tsx
- ┃ ┃ ┃ ┃ ┣ 📜WritableReviews.module.css
- ┃ ┃ ┃ ┃ ┣ 📜WritableReviews.tsx
- ┃ ┃ ┃ ┃ ┣ 📜WritingReview.module.css
- ┃ ┃ ┃ ┃ ┗ 📜WritingReview.tsx
- ┃ ┃ ┃ ┣ 📜index.module.css
- ┃ ┃ ┃ ┗ 📜index.tsx
- ┃ ┃ ┣ 📂pendingCost
- ┃ ┃ ┃ ┣ 📂components
- ┃ ┃ ┃ ┃ ┣ 📜PendingList.module.css
- ┃ ┃ ┃ ┃ ┗ 📜PendingList.tsx
- ┃ ┃ ┃ ┣ 📜index.module.css
- ┃ ┃ ┃ ┗ 📜index.tsx
- ┃ ┃ ┣ 📂receivedCost
- ┃ ┃ ┃ ┣ 📂components
- ┃ ┃ ┃ ┃ ┣ 📜ReceivedCostCard.module.css
- ┃ ┃ ┃ ┃ ┗ 📜ReceivedCostCard.tsx
- ┃ ┃ ┃ ┣ 📜index.module.css
- ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┗ 📜type.ts
- ┃ ┃ ┣ 📂receivedCostDetail
- ┃ ┃ ┃ ┣ 📂components
- ┃ ┃ ┃ ┃ ┣ 📜ReceivedList.module.css
- ┃ ┃ ┃ ┃ ┗ 📜ReceivedList.tsx
- ┃ ┃ ┃ ┣ 📜index.module.css
- ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┗ 📜type.ts
- ┃ ┃ ┣ 📂register
- ┃ ┃ ┃ ┣ 📂components
- ┃ ┃ ┃ ┃ ┣ 📜Mid.module.css
- ┃ ┃ ┃ ┃ ┗ 📜Mid.tsx
- ┃ ┃ ┃ ┣ 📜index.module.css
- ┃ ┃ ┃ ┣ 📜index.tsx
- ┃ ┃ ┃ ┗ 📜type.ts
- ┃ ┃ ┗ 📂signup
- ┃ ┃ ┃ ┗ 📜index.tsx
- ┣ 📂style
- ┃ ┗ 📜globals.css
- ┣ 📂types
- ┃ ┣ 📜apiTypes.ts
- ┃ ┣ 📜cardTypes.ts
- ┃ ┗ 📜holiday-kr.d.ts
- ┣ 📜index.tsx
- ┣ 📜react-app-env.d.ts
- ┗ 📜root.tsx
-```
-
 <br>
 
 #### <p align="right"><a href="#top">TOP👆🏻</a></p>
 
 <br>
 
-## <span id="culture">💪🏻 9. 협업 문화</span>
 
-- 일시: 평일 오전 9시 ~ 오후 7시, 주말
-- 내용: PR 내용 발표 및 코드 리뷰, 진행 상황 점검, 추가 이후 계획 논의
-
-<br>
-
-#### <p align="right"><a href="#top">TOP👆🏻</a></p>
-
-<br>
 
