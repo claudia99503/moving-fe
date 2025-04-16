@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react';
-import { useInfiniteScroll } from './useInfiniteScroll';
+import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
 
 describe('useInfiniteScroll', () => {
   let observeMock: jest.Mock;
@@ -11,7 +11,7 @@ describe('useInfiniteScroll', () => {
     unobserveMock = jest.fn();
     disconnectMock = jest.fn();
 
-    (window as any).IntersectionObserver = jest.fn((_callback) => ({
+    (window as any).IntersectionObserver = jest.fn((callback) => ({
       observe: observeMock,
       unobserve: unobserveMock,
       disconnect: disconnectMock,
@@ -29,7 +29,7 @@ describe('useInfiniteScroll', () => {
   });
 
   it('hasNextPage가 true이면 observer가 호출되어야 한다', () => {
-    jest.useFakeTimers();
+    jest.useFakeTimers(); // setTimeout 테스트용
     const onLoadMore = jest.fn();
     const { result } = renderHook(() =>
       useInfiniteScroll({ hasNextPage: true, onLoadMore }),
