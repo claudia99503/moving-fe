@@ -17,6 +17,7 @@ import PageError from '../../../components/pageError/PageError';
 import NotFound from '../../../components/404/NotFound';
 import noItems from '../../../assets/icons/ic_noItems.svg';
 import Toast from '../../../components/toast/Toast';
+import SnsShare from '../../../components/snsShare/SnsShare';
 import { useGetPendingEstimate } from '../../../lib/useQueries/estimate';
 import { useDriverDetail } from './hooks/useDriverDetail';
 import { useIsMobileView } from './hooks/useIsMobileView';
@@ -123,11 +124,24 @@ const DriverDetailPage = () => {
                 profileImg: driver.profileImg ?? undefined,
               }}
             />
+
+            {isMobileView && (
+              <>
+                <div className={style.border}></div>
+
+                <SnsShare
+                  nickname={driver.moverName}
+                  onClick={handleSnsShareClick}
+                />
+              </>
+            )}
+
             <DriverDetailInfo
               description={driver.description}
               serviceType={serviceType}
               serviceRegion={driver.serviceRegion}
             />
+
             <ReviewSection
               isLoading={isReviewLoading}
               error={!!reviewError}
@@ -193,4 +207,3 @@ const DriverDetailPage = () => {
 };
 
 export default DriverDetailPage;
-
