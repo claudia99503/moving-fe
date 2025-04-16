@@ -9,8 +9,8 @@ interface MobileBottomTabProps {
   isLoggedIn: boolean;
   handleFavoriteToggle: () => void;
   handleAssignRequest: () => void;
-  setModalOpen: Dispatch<SetStateAction<boolean>>; // ✅ 수정됨
-  setLoginModalOpen: Dispatch<SetStateAction<boolean>>; // ✅ 수정됨
+  setModalOpen: Dispatch<SetStateAction<boolean>>;
+  setLoginModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 const MobileBottomTab = ({
