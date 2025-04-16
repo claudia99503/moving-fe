@@ -7,7 +7,7 @@
 
 
 
-<b>[Moving 바로가기](gomoveit.vercel.app)</b> <br>
+<b>[Moving 바로가기](https://gomoveit.vercel.app/)</b> <br>
   
 <br> 
 </div>
