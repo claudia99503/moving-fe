@@ -182,6 +182,10 @@
     padding: 0px 24px;
   }
 
+  .leftFilters {
+    margin-top: 20px;
+  }
+
   .rightFilters {
     display: none;
   }

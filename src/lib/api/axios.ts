@@ -26,6 +26,7 @@ instance.interceptors.response.use(
       return Promise.reject({
         message: error.response?.data.message,
         status: error.response?.status,
+        code: error.response?.data.code,
       });
     }
 
@@ -42,3 +43,4 @@ instance.interceptors.response.use(
 );
 
 export default instance;
+
