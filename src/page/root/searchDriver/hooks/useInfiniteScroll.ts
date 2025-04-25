@@ -1,4 +1,5 @@
-import { useEffect, useRef, useCallback } from 'react';
+import { useRef } from 'react';
+import { useObserver } from './useObserver';
 
 interface Props {
   hasNextPage: boolean;
@@ -10,57 +11,26 @@ interface Props {
 export const useInfiniteScroll = ({
   hasNextPage,
   onLoadMore,
-  threshold = 0.3,
-  rootMargin = '300px',
+  threshold,
+  rootMargin,
 }: Props) => {
-  const observerRef = useRef<IntersectionObserver | null>(null);
-  const prevNodeRef = useRef<HTMLDivElement | null>(null);
   const isFetchingRef = useRef(false);
-  const targetRef = useCallback(
-    (node: HTMLDivElement | null) => {
-      if (!node || isFetchingRef.current || !hasNextPage) return;
 
-      if (prevNodeRef.current === node) return;
+  const handleIntersect = () => {
+    if (!hasNextPage || isFetchingRef.current) return;
 
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-        observerRef.current = null;
-      }
+    isFetchingRef.current = true;
+    Promise.resolve(onLoadMore()).finally(() => {
+      isFetchingRef.current = false;
+    });
+  };
 
-      observerRef.current = new IntersectionObserver(
-        (entries, observer) => {
-          const [entry] = entries;
-
-          if (entry.isIntersecting) {
-            isFetchingRef.current = true;
-
-            const target = entry.target;
-
-            Promise.resolve(onLoadMore()).finally(() => {
-              isFetchingRef.current = false;
-              observer.unobserve(target);
-            });
-          }
-        },
-        {
-          rootMargin,
-          threshold,
-        },
-      );
-
-      setTimeout(() => {
-        observerRef.current?.observe(node);
-        prevNodeRef.current = node;
-      }, 0);
-    },
-    [hasNextPage, onLoadMore, rootMargin, threshold],
-  );
-
-  useEffect(() => {
-    return () => {
-      observerRef.current?.disconnect();
-    };
-  }, []);
+  const targetRef = useObserver({
+    onIntersect: handleIntersect,
+    enabled: hasNextPage,
+    threshold,
+    rootMargin,
+  });
 
   return targetRef;
 };
